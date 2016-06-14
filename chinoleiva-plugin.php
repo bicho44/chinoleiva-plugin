@@ -46,7 +46,7 @@ add_action('plugins_loaded', 'casino_plugin_init');
 
 
 
-function imgd_abbeylee_setting_pages($pages)
+function imgd_setting_pages($pages)
 {
     $pages[] = array(
         'page_title' => __('Chino Leiva Page Settings','imgd')
@@ -54,8 +54,8 @@ function imgd_abbeylee_setting_pages($pages)
     ,'capability' => 'manage_options'
     ,'menu_slug' => 'chinoleiva_settings'
     ,'setting' => 'chinoleiva_settings'
-    ,'menu_icon' => 'dashicons-universal-access-alt'
-    ,'page_icon' => 'dashicons-universal-access-alt'
+    ,'menu_icon' => 'dashicons-camera'
+    ,'page_icon' => 'dashicons-camera'
         ,'position'=> '59'
     ,'default_tab' => 'Home'
 
@@ -65,7 +65,7 @@ function imgd_abbeylee_setting_pages($pages)
     return $pages;
 }
 
-add_filter('piklist_admin_pages', 'imgd_abbeylee_setting_pages');
+add_filter('piklist_admin_pages', 'imgd_setting_pages');
 /**
  * Load IMGD Framework compatibility file.
  */
