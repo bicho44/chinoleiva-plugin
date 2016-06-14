@@ -3,7 +3,7 @@
 Plugin Name: Chino Leiva Plugin
 Plugin URI: http://imgdigital.com.ar/portfolio/projects/chinoleiva/
 Description: Este es un Plug-in para el sitio de Chino Leiva
-Version: 0.1
+Version: 0.1.1
 Author: Federico Reinoso
 Author URI: http://imgdigital.com.ar
 Text Domain: imgd
