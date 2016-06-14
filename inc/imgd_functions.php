@@ -1,0 +1,199 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: bicho44
+ * Date: 6/2/16
+ * Time: 8:06 PM
+ */
+
+/**
+ * Enqueue the Admin CSS
+ */
+function imgd_setting_css()
+{
+    wp_register_style('imgd-settings-css', plugins_url( '../assets/css/abby_settings_admin.css', __FILE__ ));
+    wp_enqueue_style('imgd-settings-css');
+}
+
+
+/**
+ * Retrieve Image thumbnail ID.
+ *
+ * @since 2.9.0
+ * @since 4.4.0 `$post` can be a post ID or WP_Post object.
+ *
+ * @param int|WP_Post $post Optional. Post ID or WP_Post object. Default is global `$post`.
+ * @param string $meta Meta data a buscar
+ * @return string|int Meta ID or empty string.
+ */
+function imgd_get_meta_id( $post = null, $meta = 'imgd_image_slideshow' ) {
+
+    $post = get_post( $post );
+    if ( ! $post ) {
+        return '';
+    }
+
+    return get_post_meta( $post->ID, $meta , true );
+}
+
+/**
+ * Get Image Home Page
+ * Returns an IMAGE URL if exist.
+ *
+ * @param $post
+ * @param string $meta Post Meta for the IMAG
+ * @param string $thumbsize
+ * @param string $posttype
+ * @return false|string
+ */
+function get_imgd_imagen_home($post, $meta='imgd_slideshow', $thumbsize='thumbnail', $posttype=""){
+
+    $imageID=array();
+    $path = "";
+
+    if ($meta=='') $meta='imgd_slideshow';
+    if ($thumbsize=='') $meta='thumbnail';
+
+    $post = get_post( $post );
+
+    if ( ! $post ) {
+        return '';
+    }
+
+    $imageID = get_post_meta( $post->ID, $meta, true );
+
+    //piklist::pre($imageID);
+
+    if (!empty($imageID)){
+        return wp_get_attachment_url($imageID, $thumbsize);
+
+    } else {
+
+        if($posttype!="") {
+            $imageID = get_post_meta($post->ID, $posttype);
+            if (!empty($imageID))
+                return thumb($imageID[0]['path']);
+        }
+
+        if (has_post_thumbnail($post->ID)) {
+            return get_the_post_thumbnail_url($post->ID, $thumbsize);
+
+        }
+    }
+}
+
+/**
+ * Get Promo Title
+ * Retrive the Promotional Title if is in use. If not return the Post Title.
+ *
+ * @param $post The Post
+ * @return mixed|string Title Promotional or Post Title
+ */
+function get_promo_title($post){
+
+    $post = get_post( $post );
+
+    if ( ! $post ) {
+        return '';
+    }
+
+    $title = get_post_meta( $post->ID, 'imgd_destacado_title', true );
+
+    if (empty($title)){
+        $title = get_the_title($post->ID);
+    }
+
+    return $title;
+
+}
+
+// check if the options are different from the saved
+/**
+ * @todo Make it work because right now is bogus
+ */
+function imgd_set_thumbanils_sizes(){
+    $thw = 320;
+    $thh = 240;
+    $flw = 800;
+    $flh = 600;
+
+    $settings = get_option('abbylee_settings');
+
+    $gr = $settings['gallery_group'];
+
+    $thw = $gr['imgd_image_thumb_w'];
+    $thh = $gr['imgd_image_thumb_w'];
+    $flw = $gr['imgd_image_big_w'];
+    $flh = $gr['imgd_image_big_h'];
+
+    add_image_size('full-gallery', $flw, $flh, true);
+    add_image_size('thumb-gallery', $thw, $thh, true);
+}
+
+add_image_size('full-gallery', 800, 600, true);
+add_image_size('thumb-gallery', 150, 150, true);
+
+
+function imgd_check_gallery($postid, $metadata = 'imgd_gallery_images' ){
+
+    //$post = get_post( $post );
+
+    if ( ! $postid ) {
+        return '';
+    }
+
+    $image_ids = get_post_meta($postid, $metadata);
+
+    if (!$image_ids) return false;
+
+    return $image_ids;
+}
+
+function imgd_get_images_from_gallery($image_ids=array()){
+
+    if (empty($image_ids))
+        return '';
+
+    $data = '<div  id="gallery-page" class="gallery">' ;
+    foreach ($image_ids as $image)
+    {
+        $myupload = get_post($image);
+        $title = $myupload->post_title;
+        $description = $myupload->post_content;
+        $caption = $myupload->post_excerpt;
+
+
+        $data .= '<dl class="gallery-item">
+			<dt class="gallery-icon">';
+
+        $big = wp_get_attachment_image_src( $image, 'full-gallery' );
+
+        $data .= '<a href="'.$big[0].'" >';
+
+        $data .= wp_get_attachment_image( $image, 'thumb-gallery' );
+
+        //$data .= '<img src="' . wp_get_attachment_url($image) . '" alt="'.$title.'" />';
+        /*<a href="http://wp.loc/wp-content/uploads/2016/05/IMG_9356.jpg">
+                <img src="http://wp.loc/wp-content/uploads/2016/05/IMG_9356-169x300.jpg"
+        class="attachment-medium size-medium" alt="IMG_9356"
+        srcset="http://wp.loc/wp-content/uploads/2016/05/IMG_9356-169x300.jpg 169w, 
+        http://wp.loc/wp-content/uploads/2016/05/IMG_9356-768x1367.jpg 768w, 
+        http://wp.loc/wp-content/uploads/2016/05/IMG_9356-575x1024.jpg 575w, 
+        http://wp.loc/wp-content/uploads/2016/05/IMG_9356-253x450.jpg 253w, 
+        http://wp.loc/wp-content/uploads/2016/05/IMG_9356-197x350.jpg 197w"
+        sizes="(max-width: 169px) 100vw, 169px" height="300" width="169">
+        </a>*/
+        $data .='</a>';
+          $data .= '	</dt>
+        </dl>';
+
+    }
+    $data .= '<br style="clear: both">
+		</div>';
+
+    return $data;
+}
+
+add_filter('get_the_archive_title', function ($title) {
+    return preg_replace('/^\w+: /', '', $title);
+});

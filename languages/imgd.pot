@@ -1,0 +1,221 @@
+# Loco Gettext template
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Barcos Plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Sat Jul 25 2015 16:46:13 GMT-0300 (ART)\n"
+"POT-Revision-Date: Thu Jun 02 2016 21:13:56 GMT-0300 (ART)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
+"__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
+"_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
+"esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;"
+"esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
+"X-Generator: Loco - https://localise.biz/"
+
+#. Name of the plugin
+msgid "Abbey Lee Plugin"
+msgstr ""
+
+#. URI of the plugin
+msgid "http://imgdigital.com.ar/portfolio/projects/abbylee"
+msgstr ""
+
+#. Description of the plugin
+msgid "Este es un Plug-in para el sitio de Abby Lee"
+msgstr ""
+
+#. Author of the plugin
+msgid "Federico Reinoso"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://imgdigital.com.ar"
+msgstr ""
+
+#: ../abbylee-plugin.php:162
+msgid "Abby Lee Page Settings"
+msgstr ""
+
+#: ../abbylee-plugin.php:163
+msgid "Abby Lee Page"
+msgstr ""
+
+#: ../abbylee-plugin.php:170
+msgid "Save Settings"
+msgstr ""
+
+#: ../class-piklist-checker.php:128
+msgid "Your theme requires PIKLIST to work properly."
+msgstr ""
+
+#: ../class-piklist-checker.php:138
+msgid "The following plugin(s) require PIKLIST, and have been deactivated:"
+msgstr ""
+
+#: ../class-piklist-checker.php:154
+msgid "You can:"
+msgstr ""
+
+#: ../class-piklist-checker.php:167 ../class-piklist-checker.php:167
+msgid "Activate Piklist for this site"
+msgstr ""
+
+#: ../class-piklist-checker.php:174 ../class-piklist-checker.php:174
+msgid "Network Activate Piklist for all sites."
+msgstr ""
+
+#: ../class-piklist-checker.php:181 ../class-piklist-checker.php:181
+msgid "Install Piklist"
+msgstr ""
+
+#: ../class-piklist-checker.php:188
+#, php-format
+msgid "%1$s %2$sDismiss this message."
+msgstr ""
+
+#: ../class-piklist-checker.php:192
+#, php-format
+msgid "%1$s %2$sChange your theme."
+msgstr ""
+
+#. Description of the plugin
+msgid "Options to use the post at Home Page"
+msgstr ""
+
+#: ../parts/meta-boxes/home-metabox.php:18
+msgid "Home Page"
+msgstr ""
+
+#: ../parts/meta-boxes/home-metabox.php:19
+msgid "Publish this post on the home Page"
+msgstr ""
+
+#: ../parts/meta-boxes/home-metabox.php:25
+msgid "No"
+msgstr ""
+
+#: ../parts/meta-boxes/home-metabox.php:26
+msgid "Yes"
+msgstr ""
+
+#: ../parts/meta-boxes/home-metabox.php:34
+msgid "Post Order"
+msgstr ""
+
+#: ../parts/meta-boxes/home-metabox.php:35
+msgid ""
+"Set the order where the post must be showed in the home page, the number "
+"must be 1 to 5 "
+msgstr ""
+
+#: ../parts/meta-boxes/home-metabox.php:45
+msgid "Promotional Title (optional)"
+msgstr ""
+
+#: ../parts/meta-boxes/home-metabox.php:46
+msgid ""
+"This is optional, and will be used as the title in the Home Page, if is "
+"empty, the Home will use the Post Title"
+msgstr ""
+
+#: ../parts/meta-boxes/home-metabox.php:56
+msgid "Promotional Image (optional)"
+msgstr ""
+
+#: ../parts/meta-boxes/home-metabox.php:57
+msgid ""
+"Set the promotional Image to be used in the Home Page insted of the Feature "
+"Image."
+msgstr ""
+
+#: ../parts/meta-boxes/home-metabox.php:59
+msgid "Image to be showed at Home Page"
+msgstr ""
+
+#: ../parts/meta-boxes/home-metabox.php:60 ../parts/meta-boxes/home-metabox.php:61
+msgid "Add Image"
+msgstr ""
+
+#: ../parts/meta-boxes/home-metabox.php:71
+msgid "Limit 1 image"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Option to put a revolution slider shorcode. Remember to use the page "
+"Template \"Page with slider\" in the Page options MetaBox. If yo dont do this "
+"the slider do not gone a shown"
+msgstr ""
+
+#: ../parts/meta-boxes/shortcode-metabox.php:20
+msgid "Revolution ShortCode"
+msgstr ""
+
+#: ../parts/meta-boxes/shortcode-metabox.php:21
+msgid "Please enter the Revolution shortcode"
+msgstr ""
+
+#: ../parts/settings/dash-settings.php:16
+msgid "News Column Title"
+msgstr ""
+
+#: ../parts/settings/dash-settings.php:26
+msgid "News Column Title Link"
+msgstr ""
+
+#: ../parts/settings/dash-settings.php:36
+msgid "Insta Column Title"
+msgstr ""
+
+#: ../parts/settings/dash-settings.php:46
+msgid "Insta Column Title Link"
+msgstr ""
+
+#: ../parts/settings/pref-settings.php:15
+msgid "Insert the Slider Shortcode"
+msgstr ""
+
+#: ../parts/settings/pref-settings.php:17
+msgid "Slider Shortcode"
+msgstr ""
+
+#: ../parts/settings/pref-settings.php:27
+msgid "Banners Setting"
+msgstr ""
+
+#: ../parts/settings/pref-settings.php:29
+msgid "Insert here the Home Page banner data."
+msgstr ""
+
+#: ../parts/settings/pref-settings.php:34
+#, php-format
+msgid "Save Up to 40% on selected items"
+msgstr ""
+
+#: ../parts/settings/pref-settings.php:35
+msgid "Promo Text"
+msgstr ""
+
+#: ../parts/settings/pref-settings.php:44
+msgid "Button Text"
+msgstr ""
+
+#: ../parts/settings/pref-settings.php:53
+msgid "URL to the button"
+msgstr ""
+
+#: ../parts/settings/pref-settings.php:54
+msgid "Button Link"
+msgstr ""
