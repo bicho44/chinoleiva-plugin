@@ -71,12 +71,12 @@ add_filter('piklist_admin_pages', 'imgd_abbeylee_setting_pages');
  */
 require plugin_dir_path(__FILE__).'/inc/imgd_functions.php';
 
-imgd_setting_css();
+//imgd_setting_css();
 
 /**
  * Load IMGD Framework compatibility file.
  */
-require plugin_dir_path(__FILE__).'/inc/imgd_slider.php';
+//require plugin_dir_path(__FILE__).'/inc/imgd_slider.php';
 
 
 /**
