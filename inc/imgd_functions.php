@@ -1,10 +1,99 @@
 <?php
 /**
- * Created by PhpStorm.
+ * Listado de Funciones para incluir cosas en el plug-in
+ * 
  * User: bicho44
  * Date: 6/2/16
  * Time: 8:06 PM
  */
+
+/**
+ * Verifica que haya imagen en el SlideShow
+ *
+ * @param null $post
+ * @return bool
+ */
+function imgd_has_slideshow_thumbnail( $post = null ) {
+    return (bool) imgd_get_slideshow_thumbnail_id( $post );
+}
+
+/**
+ * Retrieve SlideShow Image thumbnail ID.
+ *
+ * @since 2.9.0
+ * @since 4.4.0 `$post` can be a post ID or WP_Post object.
+ *
+ * @param int|WP_Post $post Optional. Post ID or WP_Post object. Default is global `$post`.
+ * @return string|int Post thumbnail ID or empty string.
+ */
+function imgd_get_slideshow_thumbnail_id( $post = null ) {
+    $post = get_post( $post );
+    if ( ! $post ) {
+        return '';
+    }
+    return get_post_meta( $post->ID, 'imgd_image_slideshow', true );
+}
+
+
+/**
+ * IMGD slideshow items
+ * Obtain the posts who have images to the slide show
+ *
+ * @return object WP_Query
+ */
+function imgd_slideshow_items(){
+    // Acá seleciono las Páginas que voy a mostrar en la Home
+    $args = array('post_type' => array( 'any'),
+                  'meta_key' => 'imgd_slideshow',
+                  'meta_value' => '1',
+                  'post_status' => 'publish',
+                  'post_per_pag' => -1,
+    );
+    $loop = new WP_Query($args);
+
+    return $loop;
+}
+
+
+function imgd_get_image_src($postID){
+
+    $data = array();
+    /* Obtengo el URL de la imagen principal */
+    $post_thumbnail_id = imgd_get_slideshow_thumbnail_id($postID);
+    $html = wp_get_attachment_image_src($post_thumbnail_id, 'full-cropped');
+
+    $data['url']    = $html[0];
+    $data['title']  = "";
+
+    return $data;
+
+}
+
+function imgd_get_supersized_images(){
+
+    $loop = imgd_slideshow_items();
+
+    $images="";
+
+    if ($loop->have_posts()){
+
+        while ($loop->have_posts()) : $loop->the_post();
+
+            if (imgd_has_slideshow_thumbnail()){
+
+                $data = imgd_get_image_src(get_the_ID());
+
+                $images .= "{image: '".$data['url']."', title: '".$data['title']."'}";
+
+
+            }
+        endwhile;
+    }
+
+    return $images;
+}
+
+add_action('imgd_post_header', 'imgd_get_supersized_images', 10);
 
 /**
  * Enqueue the Admin CSS
@@ -13,6 +102,27 @@ function imgd_setting_css()
 {
     wp_register_style('imgd-settings-css', plugins_url( '../assets/css/abby_settings_admin.css', __FILE__ ));
     wp_enqueue_style('imgd-settings-css');
+}
+
+
+/**
+ * Enqueue full screen slider js
+ */
+
+function imgd_supersized_js(){
+    imgd_supersized_css();
+    // Scripts from Bootstrap
+    wp_enqueue_script( 'scripts', IMGD_PLUGIN_PATH.'assets/js/vendor/supersized.min.js', array( 'jquery' ), '3.2.7', true );
+}
+
+add_action( 'wp_enqueue_scripts', 'imgd_supersized_js' );
+
+/**
+ * Enqueue full screen slider css
+ */
+function imgd_supersized_css(){
+    wp_register_style('imgd-supersized-css', plugins_url( '../assets/css/supersized.min.css', __FILE__ ), array('imgdigital-style'));
+    wp_enqueue_style('imgd-supersized-css');
 }
 
 
@@ -184,7 +294,7 @@ function imgd_get_images_from_gallery($image_ids=array()){
         sizes="(max-width: 169px) 100vw, 169px" height="300" width="169">
         </a>*/
         $data .='</a>';
-          $data .= '	</dt>
+        $data .= '	</dt>
         </dl>';
 
     }
