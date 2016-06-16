@@ -1,7 +1,7 @@
 <?php
 /*
 Title: Home Page Preferences
-Post Type: page,post,events,tvvideo,faculty,classes
+Post Type: page,post,portfolio_project
 Description: Options to use the post at Home Page
 Priority: high
 Order: 3
@@ -12,7 +12,7 @@ piklist('field',
     array(
         'type' => 'radio'
     , 'scope' => 'post_meta' // Not used for settings sections
-    , 'field' => 'imgd_destacado'
+    , 'field' => 'imgd_slideshow'
     , 'value' => 'no' // Sets default to Option 2
     , 'label' => __('Home Page', 'imgd')
     , 'help' => __('Publish this post on the home Page', 'imgd')
@@ -27,50 +27,14 @@ piklist('field',
     ));
 
 piklist('field', array(
-    'type' => 'number'
-    , 'scope' => 'post_meta'
-    , 'field' => 'imgd_destacado_order'
-    , 'value' => 1
-    , 'label' => __('Post Order', 'imgd')
-    , 'help' => __('Set the order where the post must be showed in the home page, the number must be 1 to 5 ', 'imgd')
-    , 'conditions' => array(
-            array(
-                'field' => 'imgd_destacado'
-                , 'value' => 'yes'
-            )
-        )
-    , 'attributes' => array(
-            'class' => 'small-text'
-        )
-));
-
-piklist('field', array(
-    'type' => 'text'
-    , 'scope' => 'post_meta'
-    , 'field' => 'imgd_destacado_title'
-    , 'value' => ''
-    , 'label' => __('Promotional Title (optional)', 'imgd')
-    , 'help' => __('This is optional, and will be used as the title in the Home Page, if is empty, the Home will use the Post Title', 'imgd')
-    , 'conditions' => array(
-            array(
-                'field' => 'imgd_destacado'
-                ,'value' => 'yes'
-            )
-        )
-    , 'attributes' => array(
-            'class' => 'regular-text'
-        )
-));
-
-piklist('field', array(
     'type' => 'file'
-    , 'field' => 'imgd_destacado_image' // Use these field to match WordPress featured images.
+    , 'field' => 'imgd_image_slideshow' // Use these field to match WordPress featured images.
     , 'scope' => 'post_meta'
-    , 'label' => __('Promotional Image (optional)', 'imgd')
-    , 'help' => __('Set the promotional Image to be used in the Home Page insted of the Feature Image.', 'imgd')
+    , 'label' => __('Imagen SlideShow', 'imgd')
+    , 'help' => __('Ingrese la Imagen para el Slideshow', 'imgd')
     , 'conditions' => array(
             array(
-                'field' => 'imgd_destacado'
+                'field' => 'imgd_slideshow'
                 ,'value' => 'yes'
             )
         )

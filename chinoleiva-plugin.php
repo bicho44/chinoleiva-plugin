@@ -41,7 +41,7 @@ function imgd_plugin_init() {
     //echo '<h1>'.$plugin_dir.'</h1>';
     load_plugin_textdomain( 'imgd', false, $plugin_dir );
 }
-add_action('plugins_loaded', 'casino_plugin_init');
+add_action('plugins_loaded', 'imgd_plugin_init');
 
 
 

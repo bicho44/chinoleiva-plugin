@@ -7,31 +7,42 @@
  * Time: 8:06 PM
  */
 
-/**
- * Verifica que haya imagen en el SlideShow
- *
- * @param null $post
- * @return bool
- */
-function imgd_has_slideshow_thumbnail( $post = null ) {
-    return (bool) imgd_get_slideshow_thumbnail_id( $post );
+$chinosettings = get_option('chinoleiva_settings');
+
+
+
+if (!function_exists('imgd_has_slideshow_thumbnail')) {
+	/**
+	 * Verifica que haya imagen en el SlideShow
+	 *
+	 * @param null $post
+	 * @return bool
+	 */
+	function imgd_has_slideshow_thumbnail($post = null)
+	{
+		return (bool)imgd_get_slideshow_thumbnail_id($post);
+	}
+
 }
 
-/**
- * Retrieve SlideShow Image thumbnail ID.
- *
- * @since 2.9.0
- * @since 4.4.0 `$post` can be a post ID or WP_Post object.
- *
- * @param int|WP_Post $post Optional. Post ID or WP_Post object. Default is global `$post`.
- * @return string|int Post thumbnail ID or empty string.
- */
-function imgd_get_slideshow_thumbnail_id( $post = null ) {
-    $post = get_post( $post );
-    if ( ! $post ) {
-        return '';
-    }
-    return get_post_meta( $post->ID, 'imgd_image_slideshow', true );
+if (!function_exists('imgd_get_slideshow_thumbnail_id')) {
+	/**
+	 * Retrieve SlideShow Image thumbnail ID.
+	 *
+	 * @since 2.9.0
+	 * @since 4.4.0 `$post` can be a post ID or WP_Post object.
+	 *
+	 * @param int|WP_Post $post Optional. Post ID or WP_Post object. Default is global `$post`.
+	 * @return string|int Post thumbnail ID or empty string.
+	 */
+	function imgd_get_slideshow_thumbnail_id($post = null)
+	{
+		$post = get_post($post);
+		if (!$post) {
+			return '';
+		}
+		return get_post_meta($post->ID, 'imgd_image_slideshow', true);
+	}
 }
 
 
@@ -43,9 +54,9 @@ function imgd_get_slideshow_thumbnail_id( $post = null ) {
  */
 function imgd_slideshow_items(){
     // Acá seleciono las Páginas que voy a mostrar en la Home
-    $args = array('post_type' => array( 'any'),
+    $args = array('post_type' => array( 'post', 'page', 'portfolio_project'),
                   'meta_key' => 'imgd_slideshow',
-                  'meta_value' => '1',
+                  'meta_value' => 'yes',
                   'post_status' => 'publish',
                   'post_per_pag' => -1,
     );
@@ -77,45 +88,70 @@ function imgd_get_supersized_images(){
 
     if ($loop->have_posts()){
 
+	    $images .= "<script type=\"text/javascript\">\n";
+	    $images .= "jQuery(function($){\n";
+
+	    $images .= "$.supersized({\n";
+
+	    $images .= "autoplay                :	1,\n";
+	    $images .= "slide_interval          :   3000,\n";
+	    $images .= "transition              :   1,\n" ;			// 0-None, 1-Fade, 2-Slide Top, 3-Slide Right, 4-Slide Bottom, 5-Slide Left, 6-Carousel Right, 7-Carousel Left
+	    $images .= "transition_speed		:	700,\n";		// Speed of transition
+
+
+	    $images .= "\n\t\t slides               :  	[\n ";//{image : 'kazvan-1.jpg', title : 'Image Credit: Maria Kazvan'}
+
+		$x = 0;
+
         while ($loop->have_posts()) : $loop->the_post();
 
             if (imgd_has_slideshow_thumbnail()){
-
                 $data = imgd_get_image_src(get_the_ID());
+	            //var_export($data);
+	            if ($x!=0) $images .= ", \n";
 
-                $images .= "{image: '".$data['url']."', title: '".$data['title']."'}";
+                $images .= "{image : '".$data['url']."', 
+                            title: '".get_the_title()."', 
+                            url: '".get_the_permalink()."'} ";
 
-
+	            $x++;
             }
+
         endwhile;
+
+	    $images .= " \n]\n\n});";
+	    $images .= "\n });";
+	    $images .= "\n</script>";
     }
 
-    return $images;
+    echo $images;
 }
 
-add_action('imgd_post_header', 'imgd_get_supersized_images', 10);
+
+if ($chinosettings['imgd_display_slideshow'][0]=="fullscreen"){
+	add_action('wp_head', 'imgd_get_supersized_images', 100);
+	add_action( 'wp_enqueue_scripts', 'imgd_supersized_js' );
+}
 
 /**
  * Enqueue the Admin CSS
  */
-function imgd_setting_css()
+/*function imgd_setting_css()
 {
     wp_register_style('imgd-settings-css', plugins_url( '../assets/css/abby_settings_admin.css', __FILE__ ));
     wp_enqueue_style('imgd-settings-css');
 }
-
+*/
 
 /**
  * Enqueue full screen slider js
  */
-
 function imgd_supersized_js(){
     imgd_supersized_css();
     // Scripts from Bootstrap
-    wp_enqueue_script( 'scripts', IMGD_PLUGIN_PATH.'assets/js/vendor/supersized.min.js', array( 'jquery' ), '3.2.7', true );
+    wp_enqueue_script( 'supersized', IMGD_PLUGIN_PATH.'assets/js/vendor/supersized.min.js', array( 'jquery' ), '3.2.7', false );
+	wp_enqueue_script( 'easing', IMGD_PLUGIN_PATH.'assets/js/vendor/jquery.easing.min.js', array( 'jquery' ), '3.2.7', false );
 }
-
-add_action( 'wp_enqueue_scripts', 'imgd_supersized_js' );
 
 /**
  * Enqueue full screen slider css
@@ -123,6 +159,7 @@ add_action( 'wp_enqueue_scripts', 'imgd_supersized_js' );
 function imgd_supersized_css(){
     wp_register_style('imgd-supersized-css', plugins_url( '../assets/css/supersized.min.css', __FILE__ ), array('imgdigital-style'));
     wp_enqueue_style('imgd-supersized-css');
+
 }
 
 
