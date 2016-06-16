@@ -83,7 +83,7 @@ function imgd_get_supersized_images(){
 
     $loop = imgd_slideshow_items();
 
-    $images="";
+    $images="NO HAY IMAGENES";
 
     if ($loop->have_posts()){
 
