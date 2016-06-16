@@ -10,7 +10,6 @@
 $chinosettings = get_option('chinoleiva_settings');
 
 
-
 if (!function_exists('imgd_has_slideshow_thumbnail')) {
 	/**
 	 * Verifica que haya imagen en el SlideShow
@@ -128,8 +127,8 @@ function imgd_get_supersized_images(){
 }
 //var_dump($chinosettings['imgd_display_slideshow']);
 
-if ($chinosettings['imgd_display_slideshow'][0]=="fullscreen"){
-	add_action('wp_head', 'imgd_get_supersized_images');
+if ($chinosettings['imgd_display_slideshow'][0]=="fullscreen" ){
+	add_action('wp_head', 'imgd_get_supersized_images', 200);
 	add_action( 'wp_enqueue_scripts', 'imgd_supersized_js' );
 }
 
@@ -159,7 +158,6 @@ function imgd_supersized_js(){
 function imgd_supersized_css(){
     wp_register_style('imgd-supersized-css', plugins_url( '../assets/css/supersized.min.css', __FILE__ ), array('imgdigital-style'));
     wp_enqueue_style('imgd-supersized-css');
-
 }
 
 
