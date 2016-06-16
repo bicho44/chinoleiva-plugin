@@ -126,10 +126,10 @@ function imgd_get_supersized_images(){
 
     echo $images;
 }
-var_dump($chinosettings['imgd_display_slideshow']);
+//var_dump($chinosettings['imgd_display_slideshow']);
 
 if ($chinosettings['imgd_display_slideshow'][0]=="fullscreen"){
-	add_action('wp_head', 'imgd_get_supersized_images', 100);
+	add_action('wp_head', 'imgd_get_supersized_images');
 	add_action( 'wp_enqueue_scripts', 'imgd_supersized_js' );
 }
 
