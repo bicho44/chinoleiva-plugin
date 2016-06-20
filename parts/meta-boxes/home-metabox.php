@@ -43,7 +43,6 @@ piklist('field', array(
 		'title' => __('Image to be showed at Home Page', 'imgd')
 	, 'modal_title' => __('Add Image', 'imgd')
 	, 'button' => __('Add Image', 'imgd')
-	, 'basic' => true
 	),
 	'validate' => array(
 		array(
