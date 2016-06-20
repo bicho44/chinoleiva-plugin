@@ -1,7 +1,7 @@
 <?php
 /*
 Title: Image Gallery
-Post Type: page,post,events,tvvideo,faculty,classes
+Post Type: page,post,portfolio_project
 Description: Metabox to load all the pictures in the gallery. Just upload all the pictures and the magic occur in the theme
 Priority: high
 Order: 3

@@ -53,13 +53,26 @@ if (!function_exists('imgd_get_slideshow_thumbnail_id')) {
  */
 function imgd_slideshow_items(){
     // Acá seleciono las Páginas que voy a mostrar en la Home
-    $args = array('post_type' => array( 'post', 'page', 'portfolio_project'),
+    /*$args = array('post_type' => array( 'post', 'page', 'portfolio_project'),
                   'meta_key' => 'imgd_slideshow',
                   'meta_value' => 'yes',
                   'post_status' => 'publish',
                   'post_per_pag' => -1,
-    );
-    $loop = new WP_Query($args);
+    );*/
+	
+	$args = array('post_type' => array('post', 'page','portfolio_project'),
+	              'post_status' => 'publish',
+	              'post_per_page' => -1,
+	              'order'=>'ASC',
+	              'meta_query' => array(
+		              array(
+			              'key' => 'imgd_slideshow',
+			              'value' => 'yes'
+		              ),
+	              ),
+	);
+
+	$loop = new WP_Query($args);
 
     return $loop;
 }
@@ -87,7 +100,7 @@ function imgd_get_supersized_images(){
 
     if ($loop->have_posts()){
 
-	    $images .= "<script type=\"text/javascript\">\n";
+	    $images = "<script type=\"text/javascript\">\n";
 	    $images .= "jQuery(function($){\n";
 
 	    $images .= "$.supersized({\n";
