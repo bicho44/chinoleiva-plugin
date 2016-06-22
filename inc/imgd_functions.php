@@ -140,9 +140,11 @@ function imgd_get_supersized_images(){
 }
 //var_dump($chinosettings['imgd_display_slideshow']);
 
-if ($chinosettings['imgd_display_slideshow'][0]=="fullscreen" ){
+if (is_front_page() && $chinosettings['imgd_display_slideshow'][0]=="fullscreen" ) {
+
 	add_action('wp_head', 'imgd_get_supersized_images', 10);
-	add_action('wp_enqueue_scripts', 'imgd_supersized_js' );
+	add_action('wp_enqueue_scripts', 'imgd_supersized_js');
+
 }
 
 /**
